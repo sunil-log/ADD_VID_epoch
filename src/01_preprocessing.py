@@ -43,7 +43,7 @@ def crop_haed_and_tail(raw):
 
 
 
-def pre_processing(fn, target_dir):
+def pre_processing(fn, target_dir, low_Hz, high_Hz):
 
 	# load raw data
 	raw = mne.io.read_raw_egi(fn, preload=True)
@@ -77,7 +77,7 @@ def pre_processing(fn, target_dir):
 	raw.apply_function(detrend, picks='eeg', verbose=True)
 
 	# band-pass filter
-	raw.filter(l_freq=1, h_freq=40, picks='eeg')
+	raw.filter(l_freq=low_Hz, h_freq=high_Hz, picks='eeg')
 
 	# re-reference by average
 	raw.set_eeg_reference('average', projection=True)
@@ -121,15 +121,24 @@ def pre_processing(fn, target_dir):
 def main():
 
 	"""
-	mff 에서 동영상을 시청하는 동안의 EEG 만 추출하여 fif 로 저장합니다.
+	1. EEG data 에 linear detrend 및 band-pass filter 를 적용합니다.
+	2. Average reference 를 적용합니다.
+	3. event 기반으로 앞뒤를 자르고, 15초씩 잘라서 이어붙입니다.
+		이렇게 하여 동영상을 시청하는 동안의 데이터만 추출하여 이어 붙입니다.
+	4. E1 ~ E64, VREF 채널만 추출합니다. (STRT, stim, STI 014 는 제거)
+	5. 결과물을 fif 형태로 저장합니다.
 
 	raw_dir: mff 가 있는 위치
 	target_dir: fif 가 저장될 위치
+	low_Hz: band-pass filter 의 하한
+	high_Hz: band-pass filter 의 상한
 	"""
 
 	# Parameters
 	raw_dir = Path('../data')
 	target_dir = Path('crop_raw_fif')
+	low_Hz = 1
+	high_Hz = 40
 
 	# Create target directory
 	recreate_directory(target_dir)
@@ -139,7 +148,7 @@ def main():
 
 	# pre-processing
 	for fn in raw_list:
-		pre_processing(fn, target_dir)
+		pre_processing(fn, target_dir, low_Hz, high_Hz)
 
 
 
