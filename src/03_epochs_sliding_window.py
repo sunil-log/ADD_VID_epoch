@@ -41,9 +41,9 @@ def process_one_fif(fn_fif, events, w_size_tick, w_stride_tick):
 
 	plt.close("all")
 	fig, ax = plt.subplots(1, 1, figsize=(15, 3))
-	ax.plot(epoch_data[0, 0, :])
-	ax.plot(epoch_data[1, 0, :])
-	ax.plot(epoch_data[2, 0, :])
+	ax.plot(epoch_data[0, 0, :], label="window 0")
+	ax.plot(epoch_data[1, 0, :], label="window 1")
+	ax.plot(epoch_data[2, 0, :], label="window 2")
 	plt.savefig("epoch_data.png", bbox_inches='tight')
 	exit()
 
