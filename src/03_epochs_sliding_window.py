@@ -11,28 +11,38 @@ from utils.mne_channel_info import extract_ch_name_type
 import pandas as pd
 
 
-def process_one_fif(fn_fif, events):
+def process_one_fif(fn_fif, events, w_size_tick, w_stride_tick):
 
 	# load fif
 	raw = mne.io.read_raw_fif(fn_fif, preload=True)
 
 	# make it numpy
 	raw_data = raw.get_data().astype(np.float32)  # shape = (65, 240000)
-	print(f"raw_data.shape: {raw_data.shape}")
+
+	# for each sliding window
+	for i in range(0, len(raw_data[0]), w_stride_tick):
+
+		print(f"i: {i}, sec: {i/500}")
+
+
+	exit()
 
 
 
 
 
 
-def epoch_sliding_window(dir_fif, sample_Hz, events_npy, sliding_window_sec):
+
+
+
+def epoch_sliding_window(dir_fif, sample_Hz, events_npy, w_size_sec, w_stride_sec):
 
 	# data_dir
-	data_dir = Path('crop_raw_fif')
+	data_dir = Path(dir_fif)
 	fns = sorted(list(data_dir.glob('*.fif')))
 
 	# load events
-	events = np.load('answer_sheet.npy')
+	events = np.load(events_npy)
 	"""
 	events = 
 		[[  5000      0      1]
@@ -40,8 +50,11 @@ def epoch_sliding_window(dir_fif, sample_Hz, events_npy, sliding_window_sec):
 		 [ 17000      0      1] ...
 	"""
 
+	w_size_tick = int(sample_Hz * w_size_sec)
+	w_stride_tick = int(sample_Hz * w_stride_sec)
+
 	for fn in fns:
-		process_one_fif(fn, events)
+		process_one_fif(fn, events, w_size_tick, w_stride_tick)
 
 
 
@@ -61,18 +74,18 @@ def main():
 		dir_fif: raw fif 파일이 있는 디렉토리
 		sample_Hz: EEG 의 sampling rate
 		events_npy: 동영상의 event sheet 정보가 담긴 npy 파일
-		sliding_window_size_sec: sliding window 의 크기 (초)
-		sliding_window_stride_sec: sliding window 의 stride (초)
+		w_size_sec: sliding window 의 크기 (초)
+		w_stride_sec: sliding window 의 stride (초)
 
 	"""
 	dir_fif = "crop_raw_fif"
 	sample_Hz = 500
 	events_npy = "answer_sheet.npy"
-	sliding_window_size_sec = 1
-	sliding_window_stride_sec = 0.5
+	w_size_sec = 1
+	w_stride_sec = 0.5
 
 	# run epoch_sliding_window
-	epoch_sliding_window(dir_fif, sample_Hz, events_npy, sliding_window_size_sec)
+	epoch_sliding_window(dir_fif, sample_Hz, events_npy, w_size_sec, w_stride_sec)
 
 
 
