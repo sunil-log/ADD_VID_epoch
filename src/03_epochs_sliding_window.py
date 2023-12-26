@@ -2,11 +2,6 @@ import numpy as np
 
 from pathlib import Path
 import mne
-import matplotlib.pyplot as plt
-
-from utils.mne_plot_raw import plot_raw
-from utils.mne_modify_raw import rebuild_raw
-from utils.mne_channel_info import extract_ch_name_type
 
 import pandas as pd
 
