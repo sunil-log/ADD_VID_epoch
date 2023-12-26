@@ -73,30 +73,12 @@ def process_one_fif(fn_fif, events_df, w_size_tick, w_stride_tick, scale_factor)
 	"""
 	epoch_data.shape = (n_windows, n_channels, w_size)
 	label_data.shape = (n_windows,)
+	label \in {0, 1, 2}; 0: no event, 1: 군인, 2: 멧되지
 	"""
 
-	print(f"epoch_data.shape = {epoch_data.shape}")
-	print(f"label_data.shape = {label_data.shape}")
-	print(label_data)
-	exit()
-
-
-
-	"""
-	plt.close("all")
-	fig, ax = plt.subplots(1, 1, figsize=(15, 3))
-	ax.plot(epoch_data[0, 0, :], label="window 0")
-	ax.plot(epoch_data[1, 0, :], label="window 1")
-	ax.plot(epoch_data[2, 0, :], label="window 2")
-	ax.legend()
-	plt.savefig("epoch_data.png", bbox_inches='tight')
-	exit()
-	"""
-
-
-
-
-
+	# save epoch_data, label_data as npz
+	new_fn = f"{Path(fn_fif).parent}/{Path(fn_fif).stem}.npz"
+	np.savez(new_fn, X=epoch_data, y=label_data)
 
 
 
@@ -130,9 +112,6 @@ def epoch_sliding_window(dir_fif, sample_Hz, events_npy, w_size_sec, w_stride_se
 
 
 
-
-
-
 def main():
 
 	"""
@@ -140,6 +119,8 @@ def main():
 	시간축에 따라 sliding_window_size_sec 의 크기의 epoch 을 extract 하고,
 	sliding_window_stride_sec 만큼씩 window 를 이동시킨다.
 	window 안에 event 가 존재하면 해당 event 의 label 을 저장한다.
+		0: no event, 1: 군인, 2: 멧돼지
+	그러한 epoch 과 label 을 npz 파일로 저장한다 (X, y).
 
 	Parameters
 		dir_fif: raw fif 파일이 있는 디렉토리
