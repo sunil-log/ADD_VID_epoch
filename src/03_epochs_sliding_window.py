@@ -11,6 +11,23 @@ from utils.mne_channel_info import extract_ch_name_type
 import pandas as pd
 
 
+def extract_windows(x, w_size, w_stride):
+	"""
+	x: 입력 배열, shape = (channels, ts)
+	w_size: 추출할 윈도우의 크기
+	w_stride: 윈도우의 이동 간격
+	반환값: 추출된 윈도우들의 배열
+	"""
+	n_channels, ts_length = x.shape
+	n_windows = 1 + (ts_length - w_size) // w_stride
+	windows = np.empty((n_windows, n_channels, w_size))
+
+	for i in range(n_windows):
+		start_idx = i * w_stride
+		windows[i] = x[:, start_idx:start_idx + w_size]
+
+	return windows
+
 def process_one_fif(fn_fif, events, w_size_tick, w_stride_tick):
 
 	# load fif
@@ -20,9 +37,16 @@ def process_one_fif(fn_fif, events, w_size_tick, w_stride_tick):
 	raw_data = raw.get_data().astype(np.float32)  # shape = (65, 240000)
 
 	# for each sliding window
-	for i in range(0, len(raw_data[0]), w_stride_tick):
+	epoch_data = extract_windows(raw_data, w_size_tick, w_stride_tick) # shape = (n_windows, n_channels, w_size)
 
-		print(f"i: {i}, sec: {i/500}")
+	plt.close("all")
+	fig, ax = plt.subplots(1, 1, figsize=(15, 3))
+	ax.plot(epoch_data[0, 0, :])
+	ax.plot(epoch_data[1, 0, :])
+	ax.plot(epoch_data[2, 0, :])
+	plt.savefig("epoch_data.png", bbox_inches='tight')
+	exit()
+
 
 
 	exit()
