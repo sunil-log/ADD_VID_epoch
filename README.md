@@ -35,3 +35,26 @@ Band-Pass Filter 적용 및 동영상 시청부분 추출
    'answer_sheet.npy'라는 이벤트 파일을 읽어들여, 특정 이벤트(예: 군인, 멧돼지, 없음)에 대한 EEG 데이터만을 추출하여 이들의 평균을 계산합니다.
 
 이러한 과정을 통해 특정 이벤트에 대한 뇌파 반응의 평균적인 양상을 확인할 수 있으며, 이를 통해 각각의 이벤트가 피험자의 뇌파에 어떠한 영향을 미치는지 분석할 수 있습니다.
+
+# 03_epochs_sliding_window.py
+Sliding Window를 통한 epoch data $X$ 및 label $y$ 생성
+
+1. **Numpy 배열로 데이터 로드:**
+   각 피험자의 fif 파일을 numpy 배열로 변환합니다.
+
+2. **시간축에 따른 Epoch 추출:**
+   정의된 `sliding_window_size_sec` 크기의 window를 사용하여 시간축을 따라서 연속적인 데이터 블록(epoch)을 추출합니다.
+
+3. **Window 이동 및 이벤트 라벨링:**
+   `sliding_window_stride_sec` 만큼 window를 이동시키면서, window 안에 특정 이벤트(예: 군인, 멧돼지)가 존재하는 경우 해당 이벤트에 대한 라벨(0: no event, 1: 군인, 2: 멧돼지)을 저장합니다.
+
+4. **Epoch 및 라벨 저장:**
+   추출된 epoch과 해당 라벨을 npz 파일 형태로 저장합니다. 이 파일은 데이터(X)와 라벨(y)을 포함합니다.
+
+## 입력 매개변수
+- `dir_fif`: raw fif 파일이 저장된 디렉토리
+- `sample_Hz`: EEG 데이터의 샘플링 비율
+- `events_npy`: 동영상의 이벤트 정보가 담긴 npy 파일
+- `w_size_sec`: sliding window의 크기(초)
+- `w_stride_sec`: sliding window의 stride(초)
+- `scale_factor`: EEG 전압에 적용할 스케일링 인자
