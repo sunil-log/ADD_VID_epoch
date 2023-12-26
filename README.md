@@ -57,4 +57,4 @@ Sliding Window를 통한 epoch data $X$ 및 label $y$ 생성
 - `events_npy`: 동영상의 이벤트 정보가 담긴 npy 파일
 - `w_size_sec`: sliding window의 크기(초)
 - `w_stride_sec`: sliding window의 stride(초)
-- `scale_factor`: EEG 전압에 적용할 스케일링 인자
+- `scale_factor`: EEG 전압에 적용할 스케일링 인자 (e.g. fif 를 npy로 변경시 단위는 V 이므로 1e6을 곱해 uV로 변경)
