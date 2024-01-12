@@ -27,6 +27,7 @@ def find_event_value_pandas(df, idx_start, idx_end):
 	filtered = df[(df['tick'] >= idx_start) & (df['tick'] < idx_end)]
 
 	print(f"idx_start: {idx_start}, idx_end: {idx_end}, filtered: {filtered}")
+	print(events_df)
 
 	if not filtered.empty:
 		return filtered['event_id'].iloc[0]
