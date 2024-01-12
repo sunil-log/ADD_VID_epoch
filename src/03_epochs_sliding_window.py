@@ -128,7 +128,7 @@ def main():
 	sample_Hz = 500
 	events_npy = "answer_sheet.npy"
 	w_size_sec = 1.0
-	w_stride_sec = 1.0
+	w_stride_sec = 0.5
 	scale_factor = 1e5
 
 	# run epoch_sliding_window
