@@ -46,6 +46,43 @@ def concat_except_AB(subs):
 
 
 
+def load_half_data(sub_dir):
+
+	npy_train_X = np.load(f"{sub_dir}/timeseries_train.npy")
+	npy_train_y = np.load(f"{sub_dir}/label_train.npy")
+	npy_valid_X = np.load(f"{sub_dir}/timeseries_val.npy")
+	npy_valid_y = np.load(f"{sub_dir}/label_val.npy")
+
+	index_half = int(npy_train_X.shape[0] / 2)
+	npy_train_X1 = npy_train_X[:index_half]
+	npy_train_X2 = npy_train_X[index_half:]
+	npy_train_y1 = npy_train_y[:index_half]
+	npy_train_y2 = npy_train_y[index_half:]
+
+	index_half = int(npy_valid_X.shape[0] / 2)
+	npy_valid_X1 = npy_valid_X[:index_half]
+	npy_valid_X2 = npy_valid_X[index_half:]
+	npy_valid_y1 = npy_valid_y[:index_half]
+	npy_valid_y2 = npy_valid_y[index_half:]
+
+	print(f"npy_train_X1.shape: {npy_train_X1.shape}")
+	print(f"npy_train_X2.shape: {npy_train_X2.shape}")
+	print(f"npy_train_y1.shape: {npy_train_y1.shape}")
+	print(f"npy_train_y2.shape: {npy_train_y2.shape}")
+	print(f"npy_valid_X1.shape: {npy_valid_X1.shape}")
+	print(f"npy_valid_X2.shape: {npy_valid_X2.shape}")
+	print(f"npy_valid_y1.shape: {npy_valid_y1.shape}")
+	print(f"npy_valid_y2.shape: {npy_valid_y2.shape}")
+
+
+
+
+
+
+
+
+
+
 
 def extract_subject_index_from_dir(sub_dir):
 
@@ -90,7 +127,12 @@ def main():
 		subs = [sub for sub in subs if sub != sub_B]
 
 		# load all npys in subs
-		concat_except_AB(subs)
+		train_X, train_y, valid_X, valid_y = concat_except_AB(subs)
+
+
+		# load sub_B
+		load_half_data(sub_B)
+
 
 
 
