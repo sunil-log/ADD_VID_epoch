@@ -102,14 +102,6 @@ def main():
 	# select only index < 100
 	subjects = subjects[subject_index < 100]
 
-	print(subjects)
-	exit()
-
-
-
-
-
-
 
 	# for all subjects
 	for sub_A in subjects:
