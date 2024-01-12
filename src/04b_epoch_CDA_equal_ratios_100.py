@@ -37,10 +37,10 @@ def concat_except_AB(subs, dir_source):
 	train_y = np.concatenate(train_y, axis=0)
 	valid_X = np.concatenate(valid_X, axis=0)
 	valid_y = np.concatenate(valid_y, axis=0)
-	print(f"train_X.shape: {train_X.shape}")
-	print(f"train_y.shape: {train_y.shape}")
-	print(f"valid_X.shape: {valid_X.shape}")
-	print(f"valid_y.shape: {valid_y.shape}")
+	print(f"Source, train_X.shape: {train_X.shape}")
+	print(f"Source, train_y.shape: {train_y.shape}")
+	print(f"Source, valid_X.shape: {valid_X.shape}")
+	print(f"Source, valid_y.shape: {valid_y.shape}")
 
 
 	# save
@@ -68,6 +68,12 @@ def make_half_half(sub_A, dir_target):
 	npy_train_y = npy_y[:index_half]
 	npy_valid_X = npy_X[index_half:]
 	npy_valid_y = npy_y[index_half:]
+
+	# print
+	print(f"Target, train_X.shape: {npy_train_X.shape}")
+	print(f"Target, train_y.shape: {npy_train_y.shape}")
+	print(f"Target, valid_X.shape: {npy_valid_X.shape}")
+	print(f"Target, valid_y.shape: {npy_valid_y.shape}")
 
 	# save
 	np.save(f"{dir_target}/timeseries_train.npy", npy_train_X)
