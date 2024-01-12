@@ -11,8 +11,15 @@ def main():
 	# find subjects
 	main_dir = "add_cda_red_A"
 	subjects = sorted(glob(f"{main_dir}/subject_*"))
-	print(subjects)
-	exit()
+
+
+	# for all subjects
+	for sub_A in subjects:
+
+		# extract sub_A from subjects
+		subs = subjects.copy().remove(sub_A)
+		print(subs)
+		exit()
 
 
 
