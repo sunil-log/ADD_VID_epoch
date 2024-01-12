@@ -51,6 +51,7 @@ def concat_except_AB(subs, dir_source):
 	np.save(f"{dir_source}/timeseries_test.npy", valid_X)
 	np.save(f"{dir_source}/label_test.npy", valid_y)
 
+
 def make_half_half(sub_A, dir_target):
 
 	npy_train_X = np.load(f"{sub_A}/timeseries_train.npy")
