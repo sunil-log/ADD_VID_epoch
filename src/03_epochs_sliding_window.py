@@ -15,7 +15,7 @@ def find_event_value_pandas(df, idx_start, idx_end):
 	"""
 
 	"""
-	events_df = 
+	df = 
 	      tick  zero  event_id
 	0     5000     0         1
 	1     8500     0         2
