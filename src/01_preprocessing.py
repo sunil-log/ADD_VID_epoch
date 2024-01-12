@@ -135,7 +135,7 @@ def main():
 	"""
 
 	# Parameters
-	raw_dir = Path('../../RAW/redbox/')
+	raw_dir = Path('../../RAW/')
 	target_dir = Path('crop_raw_fif')
 	low_Hz = 1
 	high_Hz = 40
@@ -145,6 +145,7 @@ def main():
 
 	# Get raw file list
 	raw_list = sorted(list(raw_dir.glob('*.mff')))
+	print(f"raw_list: {raw_list}")
 
 	# pre-processing
 	for fn in raw_list:
