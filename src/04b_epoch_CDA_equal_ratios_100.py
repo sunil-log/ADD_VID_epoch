@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-def load_all_npys(subs, sub_A_index):
+def load_all_npys(subs, dir_name):
 	"""
 	Parameters
 		subs: list
@@ -36,8 +36,21 @@ def load_all_npys(subs, sub_A_index):
 	train_y = np.concatenate(train_y, axis=0)
 	valid_X = np.concatenate(valid_X, axis=0)
 	valid_y = np.concatenate(valid_y, axis=0)
+	print(f"train_X.shape: {train_X.shape}")
+	print(f"train_y.shape: {train_y.shape}")
+	print(f"valid_X.shape: {valid_X.shape}")
+	print(f"valid_y.shape: {valid_y.shape}")
 
-	return train_X, train_y, valid_X, valid_y
+
+	# save
+	np.save(f"{dir_name}/timeseries_train.npy", train_X)
+	np.save(f"{dir_name}/label_train.npy", train_y)
+	np.save(f"{dir_name}/timeseries_val.npy", valid_X)
+	np.save(f"{dir_name}/label_val.npy", valid_y)
+
+
+
+
 
 
 
@@ -67,14 +80,12 @@ def main():
 		# print
 		print(f"processing...: {sub_A}")
 
-		# generate dir
+		# generate dirs
 		sub_A_index = extract_subject_index_from_dir(sub_A)
 		dir_source = f"{main_dir}/subject_{sub_A_index+100}"
 		dir_target = f"{main_dir}/subject_{sub_A_index+1000}"
 		print(f"dir_source: {dir_source}")
 		print(f"dir_target: {dir_target}")
-		exit()
-
 
 
 		# extract sub_A from subjects
@@ -86,7 +97,7 @@ def main():
 		subs = [sub for sub in subs if sub != sub_B]
 
 		# load all npys in subs
-		subs_data = load_all_npys(subs)
+		subs_data = load_all_npys(subs, dir_source)
 
 
 
