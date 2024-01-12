@@ -5,6 +5,7 @@ Tartget 을 제외한 나머지를 모음
 
 from glob import glob
 import numpy as np
+from utils.dir_manage import recreate_directory
 
 
 
@@ -124,6 +125,8 @@ def main():
 		dir_target = f"{main_dir}/subject_{sub_A_index+1000}"
 		print(f"dir_source: {dir_source}")
 		print(f"dir_target: {dir_target}")
+		recreate_directory(dir_target)
+		recreate_directory(dir_source)
 
 
 		# extract sub_A from subjects
