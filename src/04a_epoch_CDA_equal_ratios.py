@@ -27,6 +27,9 @@ def main():
 
 	# for all npzs
 	for fn in fns:
+		print(f"processing...: {fn}")
+
+
 		# load npz
 		npz = np.load(fn)
 		X = npz['X']
