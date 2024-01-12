@@ -138,7 +138,7 @@ def main():
 	raw_dir = Path('../../')
 	# run `ls`
 	import os
-	os.system('ls')
+	print(os.system('ls'))
 	exit()
 
 
