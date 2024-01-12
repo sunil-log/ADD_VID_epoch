@@ -67,14 +67,14 @@ def main():
 		# reshape X into (batch, ts, dimension)
 		X = X.transpose((0, 2, 1))      # X.shape: (480, 500, 65)
 
-
-		# number of samples
-		idx_split = int(X.shape[0] * 0.8)
-
 		# even sampling
 		sampled_indices = balanced_sampling_indices(y, [0, 1, 2])
-		print(sampled_indices)
-		exit()
+		X = X[sampled_indices]
+		y= y[sampled_indices]
+
+		# number of samples
+		# idx_split = int(X.shape[0] * 0.8)
+
 
 
 
