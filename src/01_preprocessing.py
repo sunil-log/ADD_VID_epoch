@@ -135,7 +135,15 @@ def main():
 	"""
 
 	# Parameters
-	raw_dir = Path('../data')
+	raw_dir = Path('../../')
+	# run `ls`
+	import os
+	os.system('ls')
+	exit()
+
+
+
+
 	target_dir = Path('crop_raw_fif')
 	low_Hz = 1
 	high_Hz = 40
