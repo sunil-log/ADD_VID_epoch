@@ -43,7 +43,10 @@ def main():
 		"""
 
 		# reshape X into (batch, ts, dimension)
-		X = X.transpose((0, 2, 1))
+		X = X.transpose((0, 2, 1))      # X.shape: (480, 500, 65)
+
+		# split train, validation, test
+
 
 
 
