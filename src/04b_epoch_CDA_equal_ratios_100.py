@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-def load_all_npys(subs):
+def load_all_npys(subs, sub_A_index):
 	"""
 	Parameters
 		subs: list
@@ -64,11 +64,22 @@ def main():
 	# for all subjects
 	for sub_A in subjects:
 
+		# print
+		print(f"processing...: {sub_A}")
+
+		# generate dir
+		sub_A_index = extract_subject_index_from_dir(sub_A)
+		dir_source = f"{main_dir}/subject_{sub_A_index+100}"
+		dir_target = f"{main_dir}/subject_{sub_A_index+1000}"
+		print(f"dir_source: {dir_source}")
+		print(f"dir_target: {dir_target}")
+		exit()
+
+
+
 		# extract sub_A from subjects
 		subs = subjects.copy()
 		subs = [sub for sub in subs if sub != sub_A]
-		sub_A_index = extract_subject_index_from_dir(sub_A)
-		print(sub_A_index)
 
 		# choose sub_B randomly from subs
 		sub_B = np.random.choice(subs)
