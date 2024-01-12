@@ -17,7 +17,7 @@ def main():
 
 	# specify directories
 	npz_dir = "crop_raw_fif"
-	cda_dir = "epochs_cda"
+	cda_dir = "add_cda_1"
 	recreate_directory(cda_dir)
 
 
@@ -29,11 +29,29 @@ def main():
 	for fn in fns:
 		print(f"processing...: {fn}")
 
-
 		# load npz
 		npz = np.load(fn)
 		X = npz['X']
 		y = npz['y']
+		"""
+		X.shape: (480, 65, 500)
+		y.shape: (480,)
+		
+		Target shape
+			timeseries_train.shape = (batch_size, 128, 3) = (batch, ts, dimension)
+			label_train.shape = (batch_size,)
+		"""
+
+		# reshape X into (batch, ts, dimension)
+		X = X.transpose((0, 2, 1))
+
+
+
+
+
+		# reshape X to (n_epoch, n_channel, n_time)
+
+
 		print(f"X.shape: {X.shape}")
 		print(f"y.shape: {y.shape}")
 		print(f"y: {y}")
