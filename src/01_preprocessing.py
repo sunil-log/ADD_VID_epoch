@@ -135,7 +135,7 @@ def main():
 	"""
 
 	# Parameters
-	raw_dir = Path('../../RAW/')
+	raw_dir = Path('../../RAW/redbox/')
 	target_dir = Path('crop_raw_fif')
 	low_Hz = 1
 	high_Hz = 40
