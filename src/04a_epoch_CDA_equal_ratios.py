@@ -1,5 +1,7 @@
 
 
+import numpy as np
+
 from glob import glob
 from utils.dir_manage import recreate_directory
 
@@ -34,46 +36,7 @@ def main():
 		print(f"y: {y}")
 		exit()
 
-		# get indices
-		idx_0 = np.where(y == 0)[0]
-		idx_1 = np.where(y == 1)[0]
-		idx_2 = np.where(y == 2)[0]
-		print(f"idx_0: {idx_0}")
-		print(f"idx_1: {idx_1}")
-		print(f"idx_2: {idx_2}")
-		exit()
 
-		# get min length
-		min_len = min(len(idx_0), len(idx_1), len(idx_2))
-		print(f"min_len: {min_len}")
-		exit()
-
-		# get random indices
-		idx_0 = np.random.choice(idx_0, min_len, replace=False)
-		idx_1 = np.random.choice(idx_1, min_len, replace=False)
-		idx_2 = np.random.choice(idx_2, min_len, replace=False)
-		print(f"idx_0: {idx_0}")
-		print(f"idx_1: {idx_1}")
-		print(f"idx_2: {idx_2}")
-		exit()
-
-		# get data
-		X_0 = X[idx_0]
-		X_1 = X[idx_1]
-		X_2 = X[idx_2]
-		print(f"X_0.shape: {X_0.shape}")
-		print(f"X_1.shape: {X_1.shape}")
-		print(f"X_2.shape: {X_2.shape}")
-		exit()
-
-		# get label
-		y_0 = y[idx_0]
-		y_1 = y[idx_1]
-		y_2 = y[idx_2]
-		print(f"y_0.shape: {y_0.shape}")
-		print(f"y_1.shape: {y_1.shape}")
-		print(f"y_2.shape: {y_2.shape}")
-		exit()
 
 
 
