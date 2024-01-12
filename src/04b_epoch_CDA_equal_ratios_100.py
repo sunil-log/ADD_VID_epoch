@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-def load_all_npys(subs, dir_name):
+def concat_except_AB(subs):
 	"""
 	Parameters
 		subs: list
@@ -42,14 +42,7 @@ def load_all_npys(subs, dir_name):
 	print(f"valid_y.shape: {valid_y.shape}")
 
 
-	# save
-	np.save(f"{dir_name}/timeseries_train.npy", train_X)
-	np.save(f"{dir_name}/label_train.npy", train_y)
-	np.save(f"{dir_name}/timeseries_val.npy", valid_X)
-	np.save(f"{dir_name}/label_val.npy", valid_y)
-
-
-
+	return train_X, train_y, valid_X, valid_y
 
 
 
@@ -97,7 +90,7 @@ def main():
 		subs = [sub for sub in subs if sub != sub_B]
 
 		# load all npys in subs
-		subs_data = load_all_npys(subs, dir_source)
+		concat_except_AB(subs)
 
 
 
