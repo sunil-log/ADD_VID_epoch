@@ -93,10 +93,23 @@ def main():
 
 	# find subjects
 	main_dir = "add_cda_red_A"
-	subjects = sorted(glob(f"{main_dir}/subject_*"))
+	subjects = np.array(sorted(glob(f"{main_dir}/subject_*")))
+	subject_index = np.array([extract_subject_index_from_dir(sub) for sub in subjects])
 	"""
 	['add_cda_red_A/subject_0', ..., 'add_cda_red_A/subject_9']
 	"""
+
+	# select only index < 100
+	subjects = subjects[subject_index < 100]
+
+	print(subjects)
+	exit()
+
+
+
+
+
+
 
 	# for all subjects
 	for sub_A in subjects:
