@@ -135,10 +135,10 @@ def main():
 	"""
 
 	# Parameters
-	raw_dir = Path('../../')
+	raw_dir = Path('../../RAW')
 	# run `ls`
 	import os
-	print(os.system('ls ../../'))
+	print(os.system('ls ../../RAW/'))
 	exit()
 
 
