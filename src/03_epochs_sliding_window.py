@@ -43,7 +43,8 @@ def extract_windows(x, events_df, w_size, w_stride):
 
 	label_list = []
 	for i in range(n_windows):
-		start_idx = i * w_stride
+		# add start to jitter
+		start_idx = i * w_stride + np.random.randint(-w_stride // 2, w_stride // 2)
 		end_idx = start_idx + w_size
 		windows[i] = x[:, start_idx:end_idx]
 
