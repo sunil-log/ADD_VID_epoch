@@ -25,10 +25,6 @@ def find_event_value_pandas(df, idx_start, idx_end):
 	"""
 
 	filtered = df[(df['tick'] >= idx_start) & (df['tick'] < idx_end)]
-
-	print(f"idx_start: {idx_start}, idx_end: {idx_end}, filtered: {filtered}")
-	print(df)
-
 	if not filtered.empty:
 		return filtered['event_id'].iloc[0]
 	return 0
@@ -78,9 +74,6 @@ def process_one_fif(fn_fif, events_df, w_size_tick, w_stride_tick, scale_factor)
 	# save epoch_data, label_data as npz
 	new_fn = f"{Path(fn_fif).parent}/{Path(fn_fif).stem}.npz"
 	np.savez(new_fn, X=epoch_data, y=label_data)
-	exit()
-
-
 
 
 
