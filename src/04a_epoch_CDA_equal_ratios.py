@@ -4,6 +4,7 @@ import numpy as np
 
 from glob import glob
 from utils.dir_manage import recreate_directory
+import os
 
 def balanced_sampling_indices(arr, classes):
 	"""
@@ -45,12 +46,9 @@ def main():
 
 	# fid npzs
 	fns = sorted(glob(f"{npz_dir}/*.npz"))
-	print(fns)
-	exit()
-
 
 	# for all npzs
-	for fn in fns:
+	for i, fn in enumerate(fns):
 		print(f"processing...: {fn}")
 
 		# load npz
@@ -88,24 +86,15 @@ def main():
 		"""
 
 		# save npy
-		fn = f"{cda_dir}/"
+		dir_subject = f"{cda_dir}/subject_{i}"
+		if not os.path.exists(dir_subject):
+			os.mkdir(dir_subject)
 
+		np.save(f"{dir_subject}/timeseries_train.npy", X_train)
+		np.save(f"{dir_subject}/label_train.npy", y_train)
 
-
-
-
-
-
-
-
-	print(fns)
-	exit()
-
-
-
-
-
-
+		np.save(f"{dir_subject}/timeseries_val.npy", X_val)
+		np.save(f"{dir_subject}/label_val.npy", y_val)
 
 
 if __name__ == '__main__':
