@@ -17,7 +17,8 @@ def main():
 	for sub_A in subjects:
 
 		# extract sub_A from subjects
-		subs = subjects.copy().remove(sub_A)
+		subs = subjects.copy()
+		subs = [sub for sub in subs if sub != sub_A]
 		print(subs)
 		exit()
 
