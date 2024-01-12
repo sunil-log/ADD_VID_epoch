@@ -49,46 +49,31 @@ def concat_except_AB(subs, dir_source):
 	np.save(f"{dir_source}/timeseries_val.npy", valid_X)
 	np.save(f"{dir_source}/label_val.npy", valid_y)
 
-def load_half_data(sub_dir):
+def make_half_half(sub_A, dir_target):
 
-	npy_train_X = np.load(f"{sub_dir}/timeseries_train.npy")
-	npy_train_y = np.load(f"{sub_dir}/label_train.npy")
-	npy_valid_X = np.load(f"{sub_dir}/timeseries_val.npy")
-	npy_valid_y = np.load(f"{sub_dir}/label_val.npy")
+	npy_train_X = np.load(f"{sub_A}/timeseries_train.npy")
+	npy_train_y = np.load(f"{sub_A}/label_train.npy")
+	npy_valid_X = np.load(f"{sub_A}/timeseries_val.npy")
+	npy_valid_y = np.load(f"{sub_A}/label_val.npy")
 
-	index_half = int(npy_train_X.shape[0] / 2)
-	npy_train_X1 = npy_train_X[:index_half]
-	npy_train_X2 = npy_train_X[index_half:]
-	npy_train_y1 = npy_train_y[:index_half]
-	npy_train_y2 = npy_train_y[index_half:]
+	# concat
+	npy_X = np.concatenate([npy_train_X, npy_valid_X], axis=0)
+	npy_y = np.concatenate([npy_train_y, npy_valid_y], axis=0)
 
-	index_half = int(npy_valid_X.shape[0] / 2)
-	npy_valid_X1 = npy_valid_X[:index_half]
-	npy_valid_X2 = npy_valid_X[index_half:]
-	npy_valid_y1 = npy_valid_y[:index_half]
-	npy_valid_y2 = npy_valid_y[index_half:]
+	# index_half
+	index_half = int(npy_X.shape[0] / 2)
 
+	# split
+	npy_train_X = npy_X[:index_half]
+	npy_train_y = npy_y[:index_half]
+	npy_valid_X = npy_X[index_half:]
+	npy_valid_y = npy_y[index_half:]
 
-	d = {
-		"train_1_X": npy_train_X1,
-		"train_1_y": npy_train_y1,
-		"train_2_X": npy_train_X2,
-		"train_2_y": npy_train_y2,
-
-		"valid_1_X": npy_valid_X1,
-		"valid_1_y": npy_valid_y1,
-		"valid_2_X": npy_valid_X2,
-		"valid_2_y": npy_valid_y2,
-	}
-
-	return d
-
-
-
-
-
-
-
+	# save
+	np.save(f"{dir_target}/timeseries_train.npy", npy_train_X)
+	np.save(f"{dir_target}/label_train.npy", npy_train_y)
+	np.save(f"{dir_target}/timeseries_val.npy", npy_valid_X)
+	np.save(f"{dir_target}/label_val.npy", npy_valid_y)
 
 
 
@@ -133,9 +118,12 @@ def main():
 		subs = subjects.copy()
 		subs = [sub for sub in subs if sub != sub_A]
 
-		# concat except sub_A (save source)
+		# save source: concat except sub_A
 		concat_except_AB(subs, dir_source)
-		exit()
+
+		# save target: only sub_A
+		make_half_half(sub_A, dir_target)
+
 
 
 
