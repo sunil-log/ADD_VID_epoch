@@ -136,14 +136,6 @@ def main():
 
 	# Parameters
 	raw_dir = Path('../../RAW/redbox/')
-	# run `ls`
-	import os
-	print(os.system('ls ../../RAW/redbox/'))
-	exit()
-
-
-
-
 	target_dir = Path('crop_raw_fif')
 	low_Hz = 1
 	high_Hz = 40
