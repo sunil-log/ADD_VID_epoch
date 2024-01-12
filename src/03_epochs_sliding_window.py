@@ -55,7 +55,6 @@ def extract_windows(x, events_df, w_size, w_stride):
 
 		# specify end
 		end_idx = start_idx + w_size
-		print(start_idx, end_idx)
 		windows[i] = x[:, start_idx:end_idx]
 
 		# event label
