@@ -8,7 +8,7 @@ import numpy as np
 
 
 
-def concat_except_AB(subs):
+def concat_except_AB(subs, dir_source):
 	"""
 	Parameters
 		subs: list
@@ -42,9 +42,11 @@ def concat_except_AB(subs):
 	print(f"valid_y.shape: {valid_y.shape}")
 
 
-	return train_X, train_y, valid_X, valid_y
-
-
+	# save
+	np.save(f"{dir_source}/timeseries_train.npy", train_X)
+	np.save(f"{dir_source}/label_train.npy", train_y)
+	np.save(f"{dir_source}/timeseries_val.npy", valid_X)
+	np.save(f"{dir_source}/label_val.npy", valid_y)
 
 def load_half_data(sub_dir):
 
@@ -65,14 +67,20 @@ def load_half_data(sub_dir):
 	npy_valid_y1 = npy_valid_y[:index_half]
 	npy_valid_y2 = npy_valid_y[index_half:]
 
-	print(f"npy_train_X1.shape: {npy_train_X1.shape}")
-	print(f"npy_train_X2.shape: {npy_train_X2.shape}")
-	print(f"npy_train_y1.shape: {npy_train_y1.shape}")
-	print(f"npy_train_y2.shape: {npy_train_y2.shape}")
-	print(f"npy_valid_X1.shape: {npy_valid_X1.shape}")
-	print(f"npy_valid_X2.shape: {npy_valid_X2.shape}")
-	print(f"npy_valid_y1.shape: {npy_valid_y1.shape}")
-	print(f"npy_valid_y2.shape: {npy_valid_y2.shape}")
+
+	d = {
+		"train_1_X": npy_train_X1,
+		"train_1_y": npy_train_y1,
+		"train_2_X": npy_train_X2,
+		"train_2_y": npy_train_y2,
+
+		"valid_1_X": npy_valid_X1,
+		"valid_1_y": npy_valid_y1,
+		"valid_2_X": npy_valid_X2,
+		"valid_2_y": npy_valid_y2,
+	}
+
+	return d
 
 
 
@@ -122,16 +130,12 @@ def main():
 		subs = subjects.copy()
 		subs = [sub for sub in subs if sub != sub_A]
 
-		# choose sub_B randomly from subs
-		sub_B = np.random.choice(subs)
-		subs = [sub for sub in subs if sub != sub_B]
-
-		# load all npys in subs
-		train_X, train_y, valid_X, valid_y = concat_except_AB(subs)
+		# concat except sub_A (save source)
+		concat_except_AB(subs, dir_source)
+		exit()
 
 
-		# load sub_B
-		load_half_data(sub_B)
+
 
 
 
