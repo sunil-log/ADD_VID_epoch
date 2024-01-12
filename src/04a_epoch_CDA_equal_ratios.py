@@ -39,12 +39,14 @@ def main():
 
 	# specify directories
 	npz_dir = "crop_raw_fif"
-	cda_dir = "add_cda_1"
+	cda_dir = "add_cda_red_A"
 	recreate_directory(cda_dir)
 
 
 	# fid npzs
 	fns = sorted(glob(f"{npz_dir}/*.npz"))
+	print(fns)
+	exit()
 
 
 	# for all npzs
@@ -78,12 +80,15 @@ def main():
 		X_val = X[idx_split:]
 		y_train = y[:idx_split]
 		y_val = y[idx_split:]
+		"""
+		X_train.shape: (76, 500, 65)
+		y_train.shape: (76,)
+		X_val.shape: (20, 500, 65)
+		y_val.shape: (20,)
+		"""
 
-		print(f"X_train.shape: {X_train.shape}")
-		print(f"y_train.shape: {y_train.shape}")
-		print(f"X_val.shape: {X_val.shape}")
-		print(f"y_val.shape: {y_val.shape}")
-		exit()
+		# save npy
+		fn = f"{cda_dir}/"
 
 
 
