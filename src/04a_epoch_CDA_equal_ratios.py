@@ -69,8 +69,9 @@ def main():
 
 		# even sampling
 		sampled_indices = balanced_sampling_indices(y, [0, 1, 2])
+		sampled_indices = sorted(sampled_indices)
 		X = X[sampled_indices]
-		y= y[sampled_indices]
+		y = y[sampled_indices]
 
 		# number of samples
 		# idx_split = int(X.shape[0] * 0.8)
