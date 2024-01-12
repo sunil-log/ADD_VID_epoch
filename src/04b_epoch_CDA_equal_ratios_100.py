@@ -48,8 +48,8 @@ def concat_except_AB(subs, dir_source):
 	np.save(f"{dir_source}/label_train.npy", train_y)
 	np.save(f"{dir_source}/timeseries_val.npy", valid_X)
 	np.save(f"{dir_source}/label_val.npy", valid_y)
-	np.save(f"{dir_source}/timeseries_test.npy", valid_X)
-	np.save(f"{dir_source}/label_test.npy", valid_y)
+	# np.save(f"{dir_source}/timeseries_test.npy", valid_X)
+	# np.save(f"{dir_source}/label_test.npy", valid_y)
 
 
 def make_half_half(sub_A, dir_target):
@@ -83,8 +83,8 @@ def make_half_half(sub_A, dir_target):
 	np.save(f"{dir_target}/label_train.npy", npy_train_y)
 	np.save(f"{dir_target}/timeseries_val.npy", npy_valid_X)
 	np.save(f"{dir_target}/label_val.npy", npy_valid_y)
-	np.save(f"{dir_target}/timeseries_test.npy", npy_valid_X)
-	np.save(f"{dir_target}/label_test.npy", npy_valid_y)
+	# np.save(f"{dir_target}/timeseries_test.npy", npy_valid_X)
+	# np.save(f"{dir_target}/label_test.npy", npy_valid_y)
 
 
 

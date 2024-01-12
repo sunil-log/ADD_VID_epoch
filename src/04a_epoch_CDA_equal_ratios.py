@@ -96,8 +96,8 @@ def main():
 		np.save(f"{dir_subject}/timeseries_val.npy", X_val)
 		np.save(f"{dir_subject}/label_val.npy", y_val)
 
-		np.save(f"{dir_subject}/timeseries_test.npy", X_val)
-		np.save(f"{dir_subject}/label_test.npy", y_val)
+		# np.save(f"{dir_subject}/timeseries_test.npy", X_val)
+		# np.save(f"{dir_subject}/label_test.npy", y_val)
 
 
 if __name__ == '__main__':
