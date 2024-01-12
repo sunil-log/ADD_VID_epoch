@@ -5,6 +5,28 @@ import numpy as np
 from glob import glob
 from utils.dir_manage import recreate_directory
 
+def balanced_sampling_indices(arr, classes):
+	"""
+	주어진 배열에서 각 클래스의 개수를 균등하게 맞추기 위한 샘플링 인덱스를 반환합니다.
+
+	Parameters:
+	arr: numpy array
+		샘플링할 대상이 되는 NumPy 배열입니다.
+	classes: list
+		균등하게 샘플링할 클래스의 리스트입니다.
+
+	Returns:
+	List
+		균등하게 샘플링된 인덱스의 리스트입니다.
+	"""
+	indices = []
+	min_count = min([np.sum(arr == c) for c in classes])
+	for c in classes:
+		c_indices = np.where(arr == c)[0]
+		c_sampled_indices = np.random.choice(c_indices, min_count, replace=False)
+		indices.extend(c_sampled_indices)
+	return indices
+
 
 def main():
 
@@ -45,10 +67,14 @@ def main():
 		# reshape X into (batch, ts, dimension)
 		X = X.transpose((0, 2, 1))      # X.shape: (480, 500, 65)
 
-		# split train, validation, test
 
+		# number of samples
+		idx_split = int(X.shape[0] * 0.8)
 
-
+		# even sampling
+		sampled_indices = balanced_sampling_indices(y, [0, 1, 2])
+		print(sampled_indices)
+		exit()
 
 
 
