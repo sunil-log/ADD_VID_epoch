@@ -73,18 +73,19 @@ def main():
 		y = y[sampled_indices]
 
 		# number of samples
-		# idx_split = int(X.shape[0] * 0.8)
+		idx_split = int(X.shape[0] * 0.8)
+		X_train = X[:idx_split]
+		X_val = X[idx_split:]
+		y_train = y[:idx_split]
+		y_val = y[idx_split:]
 
-
-
-
-		# reshape X to (n_epoch, n_channel, n_time)
-
-
-		print(f"X.shape: {X.shape}")
-		print(f"y.shape: {y.shape}")
-		print(f"y: {y}")
+		print(f"X_train.shape: {X_train.shape}")
+		print(f"y_train.shape: {y_train.shape}")
+		print(f"X_val.shape: {X_val.shape}")
+		print(f"y_val.shape: {y_val.shape}")
 		exit()
+
+
 
 
 
