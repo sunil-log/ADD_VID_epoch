@@ -26,6 +26,12 @@ def balanced_sampling_indices(arr, classes):
 		c_indices = np.where(arr == c)[0]
 		c_sampled_indices = np.random.choice(c_indices, min_count, replace=False)
 		indices.extend(c_sampled_indices)
+
+	# sample c==0 again
+	c_indices = np.where(arr == 0)[0]
+	c_sampled_indices = np.random.choice(c_indices, min_count, replace=False)
+	indices.extend(c_sampled_indices)
+
 	return sorted(indices)
 
 
