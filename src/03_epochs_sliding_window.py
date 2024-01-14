@@ -47,7 +47,8 @@ def extract_windows(x, events_df, w_size, w_stride):
 	for i in range(n_windows):
 
 		# add jitter to start index
-		start_idx = i * w_stride + np.random.randint(-w_stride // 2, w_stride // 2)
+		# start_idx = i * w_stride + np.random.randint(-w_stride // 2, w_stride // 2)
+		start_idx = i * w_stride
 		if start_idx > max_start_idx:
 			start_idx = max_start_idx
 		elif start_idx < min_start_idx:
