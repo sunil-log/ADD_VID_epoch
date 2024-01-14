@@ -71,6 +71,8 @@ def main():
 		sampled_indices = balanced_sampling_indices(y, [0, 1, 2])
 		X = X[sampled_indices]
 		y = y[sampled_indices]
+		print(X.shape)
+		print(y.shape)
 
 		# number of samples
 		idx_split = int(X.shape[0] * 0.8)
