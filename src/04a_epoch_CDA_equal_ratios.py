@@ -73,6 +73,7 @@ def main():
 		y = y[sampled_indices]
 		print(X.shape)
 		print(y.shape)
+		print(y)
 
 		# number of samples
 		idx_split = int(X.shape[0] * 0.8)
